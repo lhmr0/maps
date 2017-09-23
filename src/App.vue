@@ -2,6 +2,7 @@
  <div>   
    <HeaderM></HeaderM>
 <div  class="bod">
+	<Home></Home>
 </div>
 <div  class="foot">
   <FooterM></FooterM>
@@ -12,9 +13,10 @@
 <script>
 import HeaderM from './components/Header.vue'
 import FooterM from './components/Footer.vue'
+import Home from './components/Home.vue'
 
  export default {
-   components:{HeaderM,FooterM}
+   components:{HeaderM,FooterM, Home}
 
  }
 </script>

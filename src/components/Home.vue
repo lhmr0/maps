@@ -1,61 +1,140 @@
 <template>
-  <section>
-    <section class="hero is-dark is-fullheight">
-    <div class="hero-body">
+<section class="hero is-dark is-mobile">
+<div class="hero-body is-mobile">
     <div class="container">
-      <h1 class="title">
-      Welcome
-      </h1>
+        <center><gmap-map
+    :center="center"
+    :zoom="15"
+    style="width: 500px; height: 300px"
+  >
+  <gmap-polygon :paths="paths">
+      </gmap-polygon>
+    <gmap-marker
+      :key="index"
+      v-for="(m, index) in markers"
+      :position="m.position"
+      :clickable="true"
+      :draggable="true"
+      @click="center=m.position"
+    ></gmap-marker>
+  </gmap-map></center>  
+  <center>
       <h2 class="subtitle">
-      SEARCH AND RATE
-      </h2>
-      <b-autocomplete  v-model="name" :data="data" placeholder="Search a movie title..." icon="search" field="title" :loading="isFetching" @input="getAsyncData" @select="option => selected = option">
-          <template scope="props" >
-            <div class="media" @click="mensaje(props.option.movie.value)">
-              <div class="media-left">
-                <img width="32" v-if="props.option.image" :src="`${props.option.image.value}`">
-              </div>
-              <div class="media-content">
-                {{ props.option.movieLabel.value }}
-                <br>
-                <small v-if="props.option.movieYear && props.option.movieDuration" >
-                 Released at {{ props.option.movieYear.value }}, 
-                 runtime {{ props.option.movieDuration.value }}</b>
-                 </small>
-              </div>
-            </div>
-          </template>
-        </b-autocomplete>
+        Reporta tus incidentes</h2>
+        <button class="button is-danger is-medium"
+            @click="isModalActive = true">
+            Reportar incidente
+        </button>
+        <b-modal :active.sync="isModalActive" :width="640">
+            <form action="">
+              <div class="modal-card">
+                  <header class="modal-card-head">
+                      <p class="modal-card-title">Reportar incidente</p>
+                  </header>
+                  <section class="modal-card-body">
+                      <b-field label="Titulo">
+                          <b-input
+                              type="text"
+                              v-model="titulo"
+                              placeholder="Titulo del incidente"
+                              required>
+                          </b-input>
+                      </b-field>
+
+                  <b-field>
+                  <b-radio-button v-model="radioButton"
+                      native-value="Robo"
+                      type="is-danger">
+                      <span>Robo</span>
+                  </b-radio-button>
+
+                  <b-radio-button v-model="radioButton"
+                      native-value="Secuestro"
+                      type="is-danger">
+                      <span>Secuestro</span>
+                  </b-radio-button>
+
+                  <b-radio-button v-model="radioButton"
+                      native-value="Pelea"
+                      type="is-danger">
+                      Pelea
+                  </b-radio-button>
+                  <b-radio-button v-model="radioButton"
+                      native-value="Asesinato"
+                      type="is-danger">
+                      Asesinato
+                  </b-radio-button>
+                  <p class="content nigru">
+                    <b> Seleccion:</b>
+            {{ radioButton }}
+              </p>
+                  </b-field>     
+                 <b-field label="Descripcion">
+                    <b-input
+                        type="text"
+                        v-model="desc"
+                        placeholder="Descripcion del incidente"
+                        required>
+                    </b-input>
+                </b-field>
+
+                
+            </section>
+            <footer class="modal-card-foot">           
+                <button class="button" type="button">Cerrar</button>
+                <button class="button is-primary">Enviar</button>
+            </footer>
+        </div>
+    </form>
+        </b-modal>
+  </center>    
     </div>
-    </div>
-  </section> 
-    
+  </div>
+  
 </section>
-
-
-
-
-   
- 
-
-
 </template>
 
 
-<script>
-  
+
+ 
+
+<script>  
+  export default {
+
+
+     components: {
+           
+        },
+       data () {
+          return {        
+            center: {lat: -8.1285196, lng: -79.0278064},        
+            markers: [{
+              position: {lat: -8.1274836, lng: -79.0319926}
+            }, {
+              position: {lat: -8.1288996, lng: -79.0312268}
+            }, {
+              position: {lat: -8.1285196, lng: -79.0278064}
+            }], 
+              paths: [
+                        [ {lat: -8.125, lng: -79.0250}, {lat: -8.1235196, lng: -79.035}, {lat: -8.130, lng: -79.035}, {lat: -8.130, lng: -79.025} ],
+                      ],
+           isModalActive: false,
+                isModalActive: false,
+                radioButton: '',
+                titulo:'',
+                desc:'',
+           
+          }
+        }
+      }
 </script>
 
 
 <style scoped>
-  .hero {
-    background-image:url(https://luishmr0.github.io/semanticmovies/img/bg.jpg);
-    background-repeat:no-repeat;
-    background-attachment:scroll;
-    background-position:center center;
-    -webkit-background-size:cover;
-    -moz-background-size:cover;
-    -o-background-size:cover;
-    background-size:cover;    
+  .nigru {
+   color:black;  
   }
+   .modal-card {
+        width: auto;
+    }
 </style>
