@@ -5,7 +5,7 @@
         <center><gmap-map
     :center="center"
     :zoom="15"
-    style="width: 70%px; height: 300px"
+    style="width: 70%px; height: 400px"
   >
   <gmap-polygon :paths="paths">
       </gmap-polygon>
@@ -25,7 +25,7 @@
             @click="isModalActive = true">
             Reportar incidente
         </button>
-        <b-modal :active.sync="isModalActive" :width="300">
+        <b-modal :active.sync="isModalActive" :width="moda">
             <form action="">
               <div class="modal-card">
                   <header class="modal-card-head">
@@ -123,6 +123,7 @@
                 radioButton: '',
                 titulo:'',
                 desc:'',
+                moda:'80%',
            
           }
         }
