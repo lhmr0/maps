@@ -1,5 +1,5 @@
 <template>
-<section class="hero is-dark is-fullheight">
+<section class="hero is-dark is-large">
 <div class="hero-body is-mobile">
     <div class="container">
         <center><gmap-map
