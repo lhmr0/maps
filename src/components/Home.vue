@@ -1,11 +1,11 @@
 <template>
-<section class="hero is-dark is-mobile">
+<section class="hero is-dark is-fullheight">
 <div class="hero-body is-mobile">
     <div class="container">
         <center><gmap-map
     :center="center"
     :zoom="15"
-    style="width: 500px; height: 300px"
+    style="width: 70%px; height: 300px"
   >
   <gmap-polygon :paths="paths">
       </gmap-polygon>
@@ -25,7 +25,7 @@
             @click="isModalActive = true">
             Reportar incidente
         </button>
-        <b-modal :active.sync="isModalActive" :width="640">
+        <b-modal :active.sync="isModalActive" :width="300">
             <form action="">
               <div class="modal-card">
                   <header class="modal-card-head">
