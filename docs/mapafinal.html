@@ -20,38 +20,44 @@
     <script>
 
 
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -8.1277569, lng: -79.0329474},
-          zoom: 6
-        });
-        var infoWindow = new google.maps.InfoWindow({map: map});
+     // Note: This example requires that you consent to location sharing when
+// prompted by your browser. If you see the error "The Geolocation service
+// failed.", it means you probably did not give permission for the browser to
+// locate you.
 
-       
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -8.1277569, lng: -79.0329474},
+    zoom: 6
+  });
+  var infoWindow = new google.maps.InfoWindow({map: map});
 
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Ubicación encontrada! '+position.coords.latitude+", "+position.coords.longitude);
-            map.setCenter(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
-      }
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
 
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: No se puede ubicar' :
-                              'Error: No soporta ubicacion');
-      }
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('Estás en lat: '+position.coords.latitude+', long:'+position.coords.longitude);
+      map.setCenter(pos);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+                        'Error: El servicio ha fallado.' :
+                        'Tu navegador no soporta la geolocalizacion.');
+  }
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJQqUbo_3ML5yoeHUEWmeS0Er7yk7ph8c&callback=initMap">
